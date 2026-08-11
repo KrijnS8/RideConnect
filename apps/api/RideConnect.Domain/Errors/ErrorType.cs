@@ -7,5 +7,6 @@ public enum ErrorType
     Conflict,
     NotFound,
     Authentication,
-    Authorization
+    Authorization,
+    Internal
 }

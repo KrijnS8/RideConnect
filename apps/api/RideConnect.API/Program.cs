@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RideConnect.API.Middleware;
 using RideConnect.Application.Features.Authentication.Interfaces;
 using RideConnect.Application.Features.Authentication.Services;
 using RideConnect.Application.Features.Authentication.Validators;
@@ -105,6 +106,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
