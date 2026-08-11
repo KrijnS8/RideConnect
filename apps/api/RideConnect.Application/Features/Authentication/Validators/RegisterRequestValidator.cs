@@ -1,4 +1,5 @@
 using FluentValidation;
+using RideConnect.Application.Common.Validation;
 using RideConnect.Application.Features.Authentication.DTOs;
 
 namespace RideConnect.Application.Features.Authentication.Validators;
@@ -18,8 +19,6 @@ public class RegisterRequestValidator
             .EmailAddress();
 
         RuleFor(x => x.Password)
-            .NotEmpty()
-            .MinimumLength(8)
-            .MaximumLength(30);
+            .ValidPassword();
     }
 }

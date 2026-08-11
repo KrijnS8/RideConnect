@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RideConnect.Application.Features.Authentication.Interfaces;
-using RideConnect.Application.Persistence;
 using RideConnect.Domain.Entities;
 
 namespace RideConnect.Infrastructure.Authentication;

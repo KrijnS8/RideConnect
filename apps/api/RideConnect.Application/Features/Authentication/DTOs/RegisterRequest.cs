@@ -1,12 +1,7 @@
 namespace RideConnect.Application.Features.Authentication.DTOs;
 
-public sealed class RegisterRequest
-{
-    public string Username { get; set; } = string.Empty;
-
-    public string Email { get; set; } = string.Empty;
-
-    public string Password { get; set; } = string.Empty;
-    
-    public string ConfirmPassword { get; set; } = string.Empty;
-}
+public sealed record RegisterRequest(
+    string Username,
+    string Email,
+    string Password,
+    string ConfirmPassword);

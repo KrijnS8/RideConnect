@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using RideConnect.Application.Features.Authentication.Interfaces;
 using RideConnect.Application.Features.Authentication.Services;
 using RideConnect.Application.Features.Authentication.Validators;
+using RideConnect.Application.Features.Users.Interfaces;
+using RideConnect.Application.Features.Users.Services;
 using RideConnect.Application.Persistence;
 using RideConnect.Infrastructure.Authentication;
 using RideConnect.Infrastructure.Persistence;
@@ -86,6 +88,7 @@ builder.Services.Configure<JwtConfig>(
 
 //  Register services
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 

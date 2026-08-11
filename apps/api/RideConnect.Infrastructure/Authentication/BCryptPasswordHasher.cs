@@ -1,5 +1,4 @@
 using RideConnect.Application.Features.Authentication.Interfaces;
-using RideConnect.Application.Persistence;
 
 namespace RideConnect.Infrastructure.Authentication;
 

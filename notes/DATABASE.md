@@ -23,3 +23,4 @@
 
 ## Other
 - [ ] Add result extension to return correct status code
+- [ ] Add username validation policy

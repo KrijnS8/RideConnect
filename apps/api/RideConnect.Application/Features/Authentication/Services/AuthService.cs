@@ -49,16 +49,12 @@ public sealed class AuthService(
         var token = jwtTokenGenerator.Generate(user);
         
         // return token
-        var response = new AuthResponse
-        {
-            // change to refresh token
-            AccessToken = token.AccessToken,
-            ExpiresAt = token.ExpiresAt
-        };
-        
+        // change to refresh token
+        var response = new AuthResponse(token.AccessToken, token.ExpiresAt);
+
         return Result<AuthResponse>.Success(response);
     }
-    
+
     public async Task<Result<AuthResponse>> LoginAsync(LoginRequest request)
     {
         var user = request.Login.Contains('@')
@@ -75,12 +71,8 @@ public sealed class AuthService(
         var token = jwtTokenGenerator.Generate(user);
         
         // return token
-        var response = new AuthResponse
-        {
-            // change to refresh token
-            AccessToken = token.AccessToken,
-            ExpiresAt = token.ExpiresAt
-        };
+        // change to refresh token
+        var response = new AuthResponse(token.AccessToken, token.ExpiresAt);
         return Result<AuthResponse>.Success(response);
     }
 }
