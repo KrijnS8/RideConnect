@@ -25,35 +25,47 @@ public class UsersController(IUserService userService) : ControllerBase
             return Unauthorized();
         
         var response = await userService.GetCurrentUserAsync(userId);
-
-        if (response.IsFailure)
-            return response.ToActionResult();
         
-        return Ok(response.Value);
+        return response.ToActionResult();
     }
 
     // Update User Password
     [Authorize]
     [HttpPut("me/password")]
-    public Task<IActionResult> UpdatePassword(UpdatePasswordRequest request)
+    public async Task<IActionResult> UpdatePassword(UpdatePasswordRequest request)
     {
-        throw new NotImplementedException(); 
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+
+        var response = await userService.UpdatePasswordAsync(userId, request);
+        
+        return response.ToActionResult();
     }
 
     // Update User Email
     [Authorize]
     [HttpPut("me/email")]
-    public Task<IActionResult> UpdateEmail(UpdateEmailRequest request)
+    public async Task<IActionResult> UpdateEmail(UpdateEmailRequest request)
     {
-        throw new NotImplementedException();
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+        
+        var response = await userService.UpdateEmailAsync(userId, request);
+        
+        return response.ToActionResult();
     }
 
     // Update User Profile
     [Authorize]
     [HttpPut("me")]
-    public Task<IActionResult> UpdateMe(UpdateUserRequest request)
+    public async Task<IActionResult> UpdateMe(UpdateUserRequest request)
     {
-        throw new NotImplementedException();  
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+        
+        var response = await userService.UpdateUserAsync(userId, request);
+        
+        return response.ToActionResult();
     }
     
     // Get User Profile
