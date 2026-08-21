@@ -96,11 +96,6 @@ public class UserService(
         
         return Result<PublicUserResponse>.Success(MapToPublicUserResponse(user));
     }
-    
-    // public Task<Result<CurrentUserResponse>> UpdateAsync(UpdateUserRequest request)
-    // {
-    //     throw new NotImplementedException();   
-    // }
 
     private static CurrentUserResponse MapToCurrentUserResponse(User user) =>
         new(
