@@ -18,17 +18,7 @@ public class UserService(
         if (user is null)
             return Result<CurrentUserResponse>.Failure(UserErrors.UserNotFound);
 
-        var response = new CurrentUserResponse(
-            user.Id,
-            user.Username,
-            user.Email,
-            user.FirstName,
-            user.LastName,
-            user.ProfilePictureUrl,
-            user.Bio,
-            user.CreatedAt);
-        
-        return Result<CurrentUserResponse>.Success(response);
+        return Result<CurrentUserResponse>.Success(MapToCurrentUserResponse(user));
     }
 
     public async Task<Result> UpdatePasswordAsync(Guid userId, UpdatePasswordRequest req)
@@ -104,18 +94,30 @@ public class UserService(
         if (user is null)
             return Result<PublicUserResponse>.Failure(UserErrors.UserNotFound);
         
-        var response = new PublicUserResponse(
-            user.Id,
-            user.Username,
-            user.ProfilePictureUrl,
-            user.Bio,
-            user.CreatedAt);
-        
-        return Result<PublicUserResponse>.Success(response);
+        return Result<PublicUserResponse>.Success(MapToPublicUserResponse(user));
     }
     
     // public Task<Result<CurrentUserResponse>> UpdateAsync(UpdateUserRequest request)
     // {
     //     throw new NotImplementedException();   
     // }
+
+    private static CurrentUserResponse MapToCurrentUserResponse(User user) =>
+        new(
+            user.Id,
+            user.Username,
+            user.Email,
+            user.FirstName,
+            user.LastName,
+            user.ProfilePictureUrl,
+            user.Bio,
+            user.CreatedAt);
+
+    private static PublicUserResponse MapToPublicUserResponse(User user) =>
+        new(
+            user.Id,
+            user.Username,
+            user.ProfilePictureUrl,
+            user.Bio,
+            user.CreatedAt);
 }
