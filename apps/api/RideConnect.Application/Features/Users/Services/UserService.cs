@@ -16,7 +16,7 @@ public class UserService(
     {
         var user = await userRepository.GetByIdAsync(userId);
         if (user is null)
-            return Result<CurrentUserResponse>.Failure(UserErrors.UserNotFound);
+            return Result<CurrentUserResponse>.Failure(UserErrors.NotFound);
 
         return Result<CurrentUserResponse>.Success(MapToCurrentUserResponse(user));
     }
@@ -25,7 +25,7 @@ public class UserService(
     {
         var user = await userRepository.GetByIdAsync(userId);
         if (user is null)
-            return Result.Failure(UserErrors.UserNotFound);
+            return Result.Failure(UserErrors.NotFound);
         
         if (!passwordHasher.Verify(user.PasswordHash, req.CurrentPassword))
             return Result.Failure(UserErrors.InvalidCredentials);
@@ -41,7 +41,7 @@ public class UserService(
     {
         var user = await userRepository.GetByIdAsync(userId);
         if (user is null)
-            return Result.Failure(UserErrors.UserNotFound);
+            return Result.Failure(UserErrors.NotFound);
         
         // TODO: maybe add normilizer
         if (user.Email != req.CurrentEmail)
@@ -61,7 +61,7 @@ public class UserService(
     {
         var user = await userRepository.GetByIdAsync(userId);
         if (user is null)
-            return Result.Failure(UserErrors.UserNotFound);
+            return Result.Failure(UserErrors.NotFound);
         
         if (!passwordHasher.Verify(user.PasswordHash, req.CurrentPassword))
             return Result.Failure(UserErrors.InvalidCredentials);
@@ -92,7 +92,7 @@ public class UserService(
     {
         var user = await userRepository.GetByIdAsync(userId);
         if (user is null)
-            return Result<PublicUserResponse>.Failure(UserErrors.UserNotFound);
+            return Result<PublicUserResponse>.Failure(UserErrors.NotFound);
         
         return Result<PublicUserResponse>.Success(MapToPublicUserResponse(user));
     }

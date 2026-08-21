@@ -9,6 +9,9 @@ using RideConnect.API.Middleware;
 using RideConnect.Application.Features.Authentication.Interfaces;
 using RideConnect.Application.Features.Authentication.Services;
 using RideConnect.Application.Features.Authentication.Validators;
+using RideConnect.Application.Features.RideRequests.Interfaces;
+using RideConnect.Application.Features.RideRequests.Services;
+using RideConnect.Application.Features.RideRequests.Validators;
 using RideConnect.Application.Features.Users.Interfaces;
 using RideConnect.Application.Features.Users.Services;
 using RideConnect.Application.Persistence;
@@ -22,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateRequestValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -90,11 +94,13 @@ builder.Services.Configure<JwtConfig>(
 //  Register services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRideRequestService, RideRequestService>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 // Register repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRideRequestRepository, RideRequestRepository>();
 
 var app = builder.Build();
 

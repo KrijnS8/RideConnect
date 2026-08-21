@@ -1,31 +1,50 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RideConnect.API.Extensions;
+using RideConnect.Application.Features.RideRequests.DTOs;
+using RideConnect.Application.Features.RideRequests.Interfaces;
 
 namespace RideConnect.API.Controllers;
 
 [ApiController]
 [Route("api/ride-requests")]
-public class RideRequestsController : ControllerBase
+public class RideRequestsController(
+    IRideRequestService rideRequestService): ControllerBase
 {
     [Authorize]
     [HttpPost]
-    public Task<IActionResult> CreateRideRequest()
+    public async Task<IActionResult> CreateRideRequest(CreateRequest request)
     {
-        throw new NotImplementedException();
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+        
+        var response = await rideRequestService.CreateAsync(userId, request);
+        
+        return response.ToActionResult();
     }
     
     [Authorize]
     [HttpGet]
-    public Task<IActionResult> GetRideRequests()
+    public async Task<IActionResult> GetRideRequests()
     {
-        throw new NotImplementedException();
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+
+        var response = await rideRequestService.GetAllAsync();
+        
+        return response.ToActionResult();
     }
     
     [Authorize]
     [HttpGet("{rideRequestId:guid}")]
-    public Task<IActionResult> GetRideRequestById(Guid rideRequestId)
+    public async Task<IActionResult> GetRideRequestById(Guid rideRequestId)
     {
-        throw new NotImplementedException();
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+
+        var response = await rideRequestService.GetAsync(rideRequestId);
+        
+        return response.ToActionResult();
     }
     
     [Authorize]
@@ -35,22 +54,27 @@ public class RideRequestsController : ControllerBase
         throw new NotImplementedException();
     }
     
-    [Authorize]
-    [HttpDelete("{rideRequestId:guid}")]
-    public Task<IActionResult> DeleteRideRequest(Guid rideRequestId)
-    {
-        throw new NotImplementedException();
-    }
-    
+    // [Authorize]
+    // [HttpDelete("{rideRequestId:guid}")]
+    // public Task<IActionResult> DeleteRideRequest(Guid rideRequestId)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
     //-------------------------------
     // Participant Endpoints
     //-------------------------------
     
     [Authorize]
     [HttpPost("{rideRequestId:guid}/participants")]
-    public Task<IActionResult> JoinRide(Guid rideRequestId)
+    public async Task<IActionResult> JoinRide(Guid rideRequestId)
     {
-        throw new NotImplementedException();
+        if (!User.TryGetUserId(out var userId))
+            return Unauthorized();
+        
+        var response = await rideRequestService.JoinAsync(userId, rideRequestId);
+        
+        return response.ToActionResult();
     }
     
     [Authorize]
