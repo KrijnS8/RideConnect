@@ -8,5 +8,7 @@ public record RideResponse(
     string? Description,
     RideStatus Status,
     string? Location,
+    int Participants,
     int MaxParticipants,
-    DateTimeOffset CreatedAt);
+    DateTimeOffset CreatedAt,
+    DateTimeOffset StartsAt);

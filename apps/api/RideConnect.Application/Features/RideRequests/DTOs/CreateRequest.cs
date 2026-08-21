@@ -4,4 +4,5 @@ public record CreateRequest(
     string Title,
     string? Description,
     string Location,
+    DateTimeOffset StartTime,
     int MaxParticipants);

@@ -15,6 +15,9 @@ public class CreateRequestValidator: AbstractValidator<CreateRequest>
         RuleFor(x => x.Location)
             .NotEmpty()
             .MaximumLength(255);
+        RuleFor(x => x.StartTime)
+            .NotEmpty()
+            .GreaterThan(DateTimeOffset.UtcNow);
         RuleFor(x => x.MaxParticipants)
             .GreaterThan(1);
     }

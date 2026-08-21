@@ -24,7 +24,9 @@ public sealed class RideRequestRepository(
     
     public async Task<IReadOnlyList<RideRequest>> GetAllAsync()
     {
-        return await dbContext.RideRequests.ToListAsync();
+        return await dbContext.RideRequests
+            .Include(x => x.Participants)
+            .ToListAsync();
     }
 
     public Task<bool> IsParticipantAsync(Guid userId, Guid rideRequestId)

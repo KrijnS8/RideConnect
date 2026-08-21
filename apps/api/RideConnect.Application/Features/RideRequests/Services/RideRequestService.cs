@@ -28,7 +28,8 @@ public sealed class RideRequestService(
             Location = request.Location,
             MaxParticipants = request.MaxParticipants,
             CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow
+            UpdatedAt = DateTimeOffset.UtcNow,
+            StartsAt = request.StartTime
         };
 
         ride.Participants.Add(new RideParticipant
@@ -121,6 +122,8 @@ public sealed class RideRequestService(
             ride.Description,
             ride.Status,
             ride.Location,
+            ride.Participants.Count,
             ride.MaxParticipants,
-            ride.CreatedAt);
+            ride.CreatedAt,
+            ride.StartsAt);
 }
